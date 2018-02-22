@@ -1,3 +1,4 @@
+//@flow 
 import React, { Component } from 'react';
 
 type Props = {};
@@ -9,8 +10,8 @@ export default class Sidebar extends Component<Props, State> {
             <aside className="menu">
                 <ul>
                     <li>Library</li>
-                    <li>Album</li>
-                    <li>Artist</li>
+                    <li>Albums</li>
+                    <li>Artists</li>
                     <li>Songs</li>
                 </ul>
             </aside>

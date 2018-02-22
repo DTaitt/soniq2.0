@@ -9,6 +9,8 @@
 
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Forum', cursive;
+    margin: 2vw;
+    padding: 0;
 }
 
 h1 {
@@ -22,11 +24,12 @@ p, li {
 //Header
 
 header {
-    height: 30vh;
+    height: 20vh;
     background: cornsilk;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-between;
     form.search div.form-group {
         padding: 0;
         margin: 3vw 0;
@@ -39,15 +42,16 @@ header {
     }
 }
 
-//Aside
-
 main {
-    height: 55vh;
+    height: 65vh;
     background: gainsboro;
 }
 
+//Aside
+
 aside.menu {
     background: cyan;
+    z-index: 2;
     height: 100%;
     width: 80vw;
     padding: 2vw 3vw;
@@ -69,4 +73,14 @@ aside.menu {
             align-items: center;
         }
     }   
+}
+
+//Audio Player
+div.react-h5-audio-player {
+    height: 15vh;
+}
+
+div.react-h5-audio-player.undefined > div {
+    background: cornsilk !important;
+    height: 100% !important;
 }
