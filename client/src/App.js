@@ -1,7 +1,5 @@
 //@flow
-
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import AudioPlayer from 'react-h5-audio-player';
 
@@ -10,6 +8,7 @@ import AudioPlayer from 'react-h5-audio-player';
 // import songData from './db/songData';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
+import MusicDisplay from './components/MusicDisplay';
 
 type Props = {};
 type State = {};
@@ -21,6 +20,7 @@ class App extends Component<Props, State> {
         <Header />
         <main>
           <Sidebar />
+          <MusicDisplay />
         </main>
         <AudioPlayer
           src="my_audio_file.ogg"
