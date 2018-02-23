@@ -46,30 +46,36 @@ main {
     height: 65vh;
     background: gainsboro;
     padding: 3vw;
+    display: flex;
 }
 
 //Aside
 
 aside.menu {
-    transition: 1s;
+    transition: 1s all;
     width: 5vw;
-    height: 100%;
+    height: 61vh;
+    z-index: 2;
     background: cyan;
     ul {
-        display: none;
+        opacity: 0;
     }
 }
 
 
 aside.menu:hover {
     transition: 1s;
-    width: 50%;
+    width: 60%;
     padding: 2vw 3vw;
+    position: absolute;
+    z-index: 2;
     // margin: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    // display: flex;
+    // flex-direction: column;
+    // justify-content: center;
     ul {
+        transition: 4s;
+        opacity: 1;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -77,7 +83,7 @@ aside.menu:hover {
             background: lightblue;
         }
         li {
-            border-bottom: 1vw solid black;
+            border-bottom: .1vw solid black;
             padding: 3vw;
             text-align: center;
             height: 15vw;
@@ -88,6 +94,33 @@ aside.menu:hover {
     }   
 }
 
+//Music Display
+section.music-display {
+    height: 61vh;
+    margin: 0 2vw;
+    width: 100%;
+}
+
+//Overview Display 
+section.overview-display {
+    padding: 1vw;
+    height: 61vh;
+    border: 1px solid blanchedalmond;
+    background: antiquewhite;
+}
+
+//Display Card
+div.display-card {
+    // background: white;
+    border: 1px solid white;
+    height: 15vw;
+    margin: 1vw 0;
+    display: flex;
+    align-items: center;
+    h2 {
+        font-size: 5vw;
+    }
+}
 
 //Audio Player
 div.react-h5-audio-player {

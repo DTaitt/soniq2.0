@@ -1,6 +1,8 @@
 //@flow
 import React, { Component } from 'react';
 
+import OverviewDisplay from './OverviewDisplay';
+
 import artistData from './../db/artistData';
 import albumData from './../db/albumData';
 import songData from './../db/songData';
@@ -43,18 +45,18 @@ export default class OverviewDisplayContainer extends Component<Props, State> {
             .then((artistInfo:Object) => {
                 this.setState((prevState) =>({
                     overviewData: [...prevState.overviewData, {
+                        artist_id: artistInfo.artist.mbid,
                         artist_name: artistInfo.artist.name,
-                        artist_image: artistInfo.artist.image[3]['#text']
+                        artist_image: artistInfo.artist.image[1]['#text']
                     }]
-                }),() => {console.log(this.state)})
+                }))
             })
     }
 
     render() {
-        console.log(this.state.artistData)
+        //console.log(this.state.artistData)
         return(
-            <div>
-            </div>    
+            <OverviewDisplay overviewData={this.state.overviewData} />  
         )
     }
 }

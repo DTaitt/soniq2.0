@@ -34,37 +34,60 @@ header {
 main {
   height: 65vh;
   background: gainsboro;
-  padding: 3vw; }
+  padding: 3vw;
+  display: flex; }
 
 aside.menu {
-  transition: 1s;
+  transition: 1s all;
   width: 5vw;
-  height: 100%;
+  height: 61vh;
+  z-index: 2;
   background: cyan; }
   aside.menu ul {
-    display: none; }
+    opacity: 0; }
 
 aside.menu:hover {
   transition: 1s;
-  width: 50%;
+  width: 60%;
   padding: 2vw 3vw;
-  display: flex;
-  flex-direction: column;
-  justify-content: center; }
+  position: absolute;
+  z-index: 2; }
   aside.menu:hover ul {
+    transition: 4s;
+    opacity: 1;
     display: flex;
     flex-direction: column;
     justify-content: space-between; }
     aside.menu:hover ul li:first-of-type {
       background: lightblue; }
     aside.menu:hover ul li {
-      border-bottom: 1vw solid black;
+      border-bottom: .1vw solid black;
       padding: 3vw;
       text-align: center;
       height: 15vw;
       display: flex;
       justify-content: center;
       align-items: center; }
+
+section.music-display {
+  height: 61vh;
+  margin: 0 2vw;
+  width: 100%; }
+
+section.overview-display {
+  padding: 1vw;
+  height: 61vh;
+  border: 1px solid blanchedalmond;
+  background: antiquewhite; }
+
+div.display-card {
+  border: 1px solid white;
+  height: 15vw;
+  margin: 1vw 0;
+  display: flex;
+  align-items: center; }
+  div.display-card h2 {
+    font-size: 5vw; }
 
 div.react-h5-audio-player {
   height: 15vh; }
