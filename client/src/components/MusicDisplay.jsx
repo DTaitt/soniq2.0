@@ -9,9 +9,9 @@ type State = {};
 export default class MusicDisplay extends Component<Props, State> {
     render() {
         return(
-            <div className="music-display">
+            <section className="music-display">
                 <OverviewDisplayContainer />
-            </div>    
+            </section>    
         )
     }
 }
