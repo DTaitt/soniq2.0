@@ -1,5 +1,6 @@
 //@flow
 import React from 'react';
+import { Panel, Breadcrumb } from 'react-bootstrap';
 
 import DisplayCard from './DisplayCard';
 
@@ -14,20 +15,31 @@ type artistInfo = {
 }
 
 export default function OverviewDisplay(props:Props) {
-    console.log(props.overviewData)
     return(
         <section className='overview-display'>
-            {
-                props.overviewData.map((artistInfo:artistInfo) => {
-                    return(
-                        <DisplayCard
-                            key = { artistInfo.artist_id }
-                            name = { artistInfo.artist_name }
-                            img = { artistInfo.artist_image }
-                        />
-                    )
-                })
-            }
+            <Panel>
+                <Breadcrumb>
+                    <Breadcrumb.Item>
+                        Home
+                    </Breadcrumb.Item>
+                    <Breadcrumb.Item active>
+                        Artists
+                    </Breadcrumb.Item>
+                </Breadcrumb>
+                <Panel.Body>
+                    {
+                        props.overviewData.map((artistInfo:artistInfo) => {
+                            return(
+                                <DisplayCard
+                                    key = { artistInfo.artist_id }
+                                    name = { artistInfo.artist_name }
+                                    img = { artistInfo.artist_image }
+                                />
+                            )
+                        })
+                    }
+                </Panel.Body>
+            </Panel>
         </section>
     )
 }

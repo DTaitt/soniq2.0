@@ -21,6 +21,14 @@ p, li {
     font-size: 5vw;
 }
 
+ol.breadcrumb {
+    margin: 0;
+}
+div.panel {
+    height: 100%;
+    overflow-y: scroll;
+}
+
 //Header
 
 header {
@@ -43,7 +51,7 @@ header {
 }
 
 main {
-    height: 65vh;
+    height: 67vh;
     background: gainsboro;
     padding: 3vw;
     display: flex;
@@ -53,8 +61,8 @@ main {
 
 aside.menu {
     transition: .3s all;
-    width: 5vw;
-    height: 61vh;
+    width: 5%;
+    height: 63vh;
     z-index: 2;
     background: cyan;
     ul {
@@ -92,14 +100,16 @@ aside.menu:hover {
 
 //Music Display
 section.music-display {
-    height: 61vh;
-    margin: 0 1.5vw;
-    width: 100%;
+    height: 63vh;
+    margin: 0 2vw;
+    width: 88%;
+    position: absolute;
+    right: 0;
 }
 
 //Overview Display 
 section.overview-display {
-    height: 61vh;
+    height: 63vh;
 }
 
 //Display Card
@@ -117,7 +127,7 @@ div.display-card {
 
 //Audio Player
 div.react-h5-audio-player {
-    height: 15vh;
+    height: 13vh;
 }
 
 div.react-h5-audio-player.undefined > div {

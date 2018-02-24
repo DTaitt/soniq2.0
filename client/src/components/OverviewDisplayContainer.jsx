@@ -30,6 +30,8 @@ export default class OverviewDisplayContainer extends Component<Props, State> {
     componentDidMount() {
         this.setState({
             artistData: artistData,
+            albumData: albumData,
+            songData: songData,
         },() => {
             artistData.forEach((artistObj) => {
                 this.apiFetch(artistObj.artist_name)

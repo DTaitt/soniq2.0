@@ -6,7 +6,6 @@ type State = {};
 
 export default class Sidebar extends Component<Props, State> {
     render() {
-        console.log(process.env)
         return(
             <aside className="menu">
                 <ul>
