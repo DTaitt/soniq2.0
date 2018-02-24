@@ -1,12 +1,12 @@
 //@flow
 import React, { Component } from 'react';
+import { BrowserRouter, Route, Redirect} from 'react-router-dom';
 
 import OverviewDisplay from './OverviewDisplay';
 
 import artistData from './../db/artistData';
 import albumData from './../db/albumData';
 import songData from './../db/songData';
-const API_KEY = process.env.API_KEY;
 
 type Props = {};
 type State = {
@@ -55,10 +55,52 @@ export default class OverviewDisplayContainer extends Component<Props, State> {
             })
     }
 
+    redirectToArtists() {
+        return(
+            <Route 
+                exact 
+                path='/' 
+                render={ 
+                    () => {
+                        return(
+                            <Redirect to='/artists' />
+                        )
+                    }     
+                } 
+            >
+            </Route>
+        )
+    }
+
+    renderAllArtists() {
+        return(
+            <Route
+                exact 
+                path='/artists'
+                render={
+                    () => {
+                        return(
+                            <OverviewDisplay 
+                                overviewData={this.state.overviewData} 
+                            /> 
+                        )
+                    }  
+                }
+            >
+            </Route>
+        )
+    }
+
     render() {
         //console.log(this.state.artistData)
         return(
-            <OverviewDisplay overviewData={this.state.overviewData} />  
+            <BrowserRouter>
+                <div>
+                    { this.redirectToArtists() }
+                    { this.renderAllArtists() }
+                </div>
+            </BrowserRouter>    
+             
         )
     }
 }
