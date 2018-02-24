@@ -9,11 +9,17 @@ h1, h2, h3, h4, h5, h6 {
   margin: 2vw;
   padding: 0; }
 
+ul {
+  list-style: none; }
+
 h1 {
   font-size: 10vw; }
 
 p, li {
   font-size: 5vw; }
+
+li span {
+  text-transform: capitalize; }
 
 ol.breadcrumb {
   margin: 0; }
@@ -89,7 +95,7 @@ section.overview-display {
 div.display-card {
   background: antiquewhite;
   border: 1px solid white;
-  height: 15vw;
+  height: 18vw;
   margin-bottom: 1vw;
   display: flex;
   align-items: center; }

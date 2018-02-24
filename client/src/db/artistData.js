@@ -13,7 +13,7 @@ const artistData = [
     },
     {
         "id": 4,
-        "artist_name": "The Fugees"
+        "artist_name": "Fugees"
     },
     {
         "id": 5,

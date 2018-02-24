@@ -1,43 +1,52 @@
 //@flow
 import React from 'react';
 import { Panel, Breadcrumb } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 import DisplayCard from './DisplayCard';
 
 type Props = {
     overviewData:Object[],
+    location:String,
 }
 
-type artistInfo = {
-    artist_id:string,
-    artist_name:string,
-    artist_image:string,
+type overviewInfo = {
+    id:string,
+    name:string,
+    img:string,
 }
 
 export default function OverviewDisplay(props:Props) {
+    console.log(props)
     return(
         <section className='overview-display'>
             <Panel>
                 <Breadcrumb>
                     <Breadcrumb.Item>
-                        Home
+                        <Link to='/artists'>
+                            Home
+                        </Link>
                     </Breadcrumb.Item>
                     <Breadcrumb.Item active>
-                        Artists
+                        { props.location }
                     </Breadcrumb.Item>
                 </Breadcrumb>
                 <Panel.Body>
-                    {
-                        props.overviewData.map((artistInfo:artistInfo) => {
-                            return(
-                                <DisplayCard
-                                    key = { artistInfo.artist_id }
-                                    name = { artistInfo.artist_name }
-                                    img = { artistInfo.artist_image }
-                                />
-                            )
-                        })
-                    }
+                    <ul className='display-card-list'>
+                        {
+                            props.overviewData.map((overviewInfo:overviewInfo) => {
+                                return(
+                                    <li>
+                                        <DisplayCard
+                                            key = { overviewInfo.id }
+                                            name = { overviewInfo.name }
+                                            img = { overviewInfo.img }
+                                        />
+                                    </li>
+                                )
+                            })
+                        }
+                    </ul>
                 </Panel.Body>
             </Panel>
         </section>

@@ -5,11 +5,11 @@ import { special } from './../audio/04 - D.R.A.M. Sings Special.mp3';
 import { blessings } from './../audio/05 - Blessings.mp3';
 import { sameDrugs } from './../audio/06 - Same Drugs.mp3';
 
-const songData = [
+const trackData = [
     {
         'id': 1,
         'artist_id': 1,
-        'song_title': 'All We Got',
+        'track_title': 'All We Got',
         'album_id': 1,
         'audio': allWeGot,
         'filetype': 'mp3',
@@ -17,7 +17,7 @@ const songData = [
     {
         'id': 2,
         'artist_id': 1,
-        'song_title': 'No Problem',
+        'track_title': 'No Problem',
         'album_id': 1,
         'audio': noProblem,
         'filetype': 'mp3',
@@ -25,7 +25,7 @@ const songData = [
     {
         'id': 3,
         'artist_id': 1,
-        'song_title': 'Summer Friends',
+        'track_title': 'Summer Friends',
         'album_id': 1,
         'audio': summerFriends,
         'filetype': 'mp3',
@@ -33,7 +33,7 @@ const songData = [
     {
         'id': 4,
         'artist_id': 1,
-        'song_title': 'Special',
+        'track_title': 'Special',
         'album_id': 1,
         'audio': special,
         'filetype': 'mp3',
@@ -41,7 +41,7 @@ const songData = [
     {
         'id': 5,
         'artist_id': 1,
-        'song_title': 'Blessings',
+        'track_title': 'Blessings',
         'album_id': 1,
         'audio': blessings,
         'filetype': 'mp3',
@@ -49,12 +49,12 @@ const songData = [
     {
         'id': 6,
         'artist_id': 1,
-        'song_title': 'Same Drugs',
+        'track_title': 'Same Drugs',
         'album_id': 1,
         'audio': sameDrugs,
         'filetype': 'mp3',
     },
   ]
   
-  export default songData;
+  export default trackData;
   
