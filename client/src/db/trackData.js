@@ -54,6 +54,14 @@ const trackData = [
         'audio': sameDrugs,
         'filetype': 'mp3',
     },
+    {
+        'id': 7,
+        'artist_name': 'SZA',
+        'name': 'Love Galore',
+        'album_name': 'CTRL',
+        'audio': sameDrugs,
+        'filetype': 'mp3',
+    }
   ]
   
   export default trackData;

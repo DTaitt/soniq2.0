@@ -27,18 +27,45 @@ export default class OverviewDisplayContainer extends Component<Props, State> {
         overviewData: [],
     }
 
-    componentDidMount() {
-        artistData.forEach((artistObj) => {
+    componentDidMount() {  
+        // filter out duplicate artists and albums from db      
+        this.filterArtists()
+        this.filterAlbums()
+        
+        trackData.forEach((trackObj) => {
+            this.apiFetch('track', trackObj.artist_name, trackObj.album_name, trackObj.name)
+        })
+    }
+
+    filterArtists() {
+        let artistNames = [];
+        let allArtists = [];
+
+        for (let i = 0; i < trackData.length; i++) {
+            if (artistNames.indexOf(trackData[i].artist_name) === -1) {
+                artistNames.push(trackData[i].artist_name)
+                allArtists.push(trackData[i])
+            }
+        }
+
+        allArtists.forEach((artistObj) => {
             this.apiFetch('artist',artistObj.artist_name)
         })
-        albumData.forEach((albumObj) => {
-            this.apiFetch('album',albumObj.artist_name,albumObj.album_name,undefined)
-        })
-        trackData.forEach((trackObj) => {
-            this.apiFetch('track',trackObj.artist_name,trackObj.album_name,trackObj.track_name)
-        })
-        this.setState({
-            trackData: trackData,
+    }
+
+    filterAlbums() {
+        let albumNames = [];
+        let allAlbums = [];
+
+        for (let i = 0; i < trackData.length; i++) {
+            if (albumNames.indexOf(trackData[i].album_name) === -1) {
+                albumNames.push(trackData[i].album_name)
+                allAlbums.push(trackData[i])
+            }
+        }
+
+        allAlbums.forEach((albumObj) => {
+            this.apiFetch('album',albumObj.artist_name,albumObj.album_name)
         })
     }
 
@@ -74,21 +101,20 @@ export default class OverviewDisplayContainer extends Component<Props, State> {
                     }))
                 })    
             break;    
-            // case 'track':
-            // fetch(`http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=e9bb8cb9315f107a6c913dd67b7ead04&artist=${artist}&track=${String(track)}&format=json`)
-            //     .then((res) => {
-            //         return res.json();
-            //     })
-            //     .then((trackInfo:Object) => {
-            //         console.log(trackInfo.track)
-            //         this.setState((prevState) =>({
-            //             trackData: [...prevState.trackData, {
-            //                 id: trackInfo.track.url,
-            //                 name: trackInfo.track.name,
-            //                 // img: trackInfo.track.album.image[1]['#text']
-            //             }]
-            //         }))
-            //     })        
+            case 'track':
+            fetch(`http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=e9bb8cb9315f107a6c913dd67b7ead04&artist=${artist}&track=${String(track)}&format=json`)
+                .then((res) => {
+                    return res.json();
+                })
+                .then((trackInfo:Object) => {
+                    this.setState((prevState) =>({
+                        trackData: [...prevState.trackData, {
+                            id: trackInfo.track.url,
+                            name: trackInfo.track.name,
+                            // img: trackInfo.track.album.image[1]['#text']
+                        }]
+                    }))
+                })   
             default:
                 break;
         }
