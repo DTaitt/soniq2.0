@@ -1,6 +1,7 @@
 //@flow 
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { Panel } from 'react-bootstrap';
 
 type Props = {};
 type State = {};
@@ -8,7 +9,7 @@ type State = {};
 export default class Sidebar extends Component<Props, State> {
     render() {
         return(
-            <aside className="menu">
+            <Panel className="menu">
                 <ul>
                     <li>Library</li>
                     <li>
@@ -27,7 +28,7 @@ export default class Sidebar extends Component<Props, State> {
                         </Link>
                     </li>
                 </ul>
-            </aside>
+            </Panel>
         )
     }
 }
