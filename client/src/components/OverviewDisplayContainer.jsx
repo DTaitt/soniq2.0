@@ -34,6 +34,12 @@ export default class OverviewDisplayContainer extends Component<Props, State> {
         albumData.forEach((albumObj) => {
             this.apiFetch('album',albumObj.artist_name,albumObj.album_name,undefined)
         })
+        trackData.forEach((trackObj) => {
+            this.apiFetch('track',trackObj.artist_name,trackObj.album_name,trackObj.track_name)
+        })
+        this.setState({
+            trackData: trackData,
+        })
     }
 
     apiFetch(fetchType:string, artist:string, album?:string, track?:string) {
@@ -67,6 +73,22 @@ export default class OverviewDisplayContainer extends Component<Props, State> {
                         }]
                     }))
                 })    
+            break;    
+            // case 'track':
+            // fetch(`http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=e9bb8cb9315f107a6c913dd67b7ead04&artist=${artist}&track=${String(track)}&format=json`)
+            //     .then((res) => {
+            //         return res.json();
+            //     })
+            //     .then((trackInfo:Object) => {
+            //         console.log(trackInfo.track)
+            //         this.setState((prevState) =>({
+            //             trackData: [...prevState.trackData, {
+            //                 id: trackInfo.track.url,
+            //                 name: trackInfo.track.name,
+            //                 // img: trackInfo.track.album.image[1]['#text']
+            //             }]
+            //         }))
+            //     })        
             default:
                 break;
         }
@@ -131,14 +153,34 @@ export default class OverviewDisplayContainer extends Component<Props, State> {
         )
     }
 
+    renderAllTracks() {
+        return(
+            <Route
+                exact 
+                path='/tracks'
+                render={
+                    ({location}) => {
+                        return(
+                            <OverviewDisplay 
+                                overviewData={this.state.trackData} 
+                                location={location.pathname.slice(1)}
+                            /> 
+                        )
+                    }  
+                }
+            >
+            </Route>
+        )
+    }
+
     render() {
-        console.log(this.state)
         return(
             <BrowserRouter>
                 <div>
                     { this.redirectToArtists() }
                     { this.renderAllArtists() }
                     { this.renderAllAlbums() }
+                    { this.renderAllTracks() }
                 </div>
             </BrowserRouter>    
              

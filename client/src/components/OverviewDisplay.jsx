@@ -17,16 +17,15 @@ type overviewInfo = {
 }
 
 export default function OverviewDisplay(props:Props) {
-    console.log(props)
     return(
         <section className='overview-display'>
             <Panel>
                 <Breadcrumb>
-                    <Breadcrumb.Item>
+                    <li>
                         <Link to='/artists'>
                             Home
                         </Link>
-                    </Breadcrumb.Item>
+                    </li>
                     <Breadcrumb.Item active>
                         { props.location }
                     </Breadcrumb.Item>
@@ -36,9 +35,8 @@ export default function OverviewDisplay(props:Props) {
                         {
                             props.overviewData.map((overviewInfo:overviewInfo) => {
                                 return(
-                                    <li>
+                                    <li key = { overviewInfo.id }>
                                         <DisplayCard
-                                            key = { overviewInfo.id }
                                             name = { overviewInfo.name }
                                             img = { overviewInfo.img }
                                         />
