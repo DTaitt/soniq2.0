@@ -1,5 +1,5 @@
 //@flow
-import React from 'react';
+import React, { Component } from 'react';
 import { Panel, Breadcrumb } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
@@ -10,43 +10,55 @@ type Props = {
     location:String,
 }
 
+type State = {}
+
 type overviewInfo = {
     id:string,
     name:string,
     img:string,
 }
 
-export default function OverviewDisplay(props:Props) {
-    return(
-        <section className='overview-display'>
-            <Panel>
-                <Breadcrumb>
-                    <li>
-                        <Link to='/artists'>
-                            Home
-                        </Link>
-                    </li>
-                    <Breadcrumb.Item active>
-                        { props.location }
-                    </Breadcrumb.Item>
-                </Breadcrumb>
-                <Panel.Body>
-                    <ul className='display-card-list'>
-                        {
-                            props.overviewData.map((overviewInfo:overviewInfo) => {
-                                return(
-                                    <li key = { overviewInfo.id }>
-                                        <DisplayCard
-                                            name = { overviewInfo.name }
-                                            img = { overviewInfo.img }
-                                        />
-                                    </li>
-                                )
-                            })
-                        }
-                    </ul>
-                </Panel.Body>
-            </Panel>
-        </section>
-    )
+export default class OverviewDisplay extends Component<Props, State> {
+    props:Props
+
+    renderDisplayCard() {
+        
+    }
+
+    render() {
+        return(
+            <section className='overview-display'>
+                <Panel>
+                    <Breadcrumb>
+                        <li>
+                            <Link to='/artists'>
+                                Home
+                            </Link>
+                        </li>
+                        <Breadcrumb.Item active>
+                            { this.props.location }
+                        </Breadcrumb.Item>
+                    </Breadcrumb>
+                    <Panel.Body>
+                        <ul className='display-card-list'>
+                            { 
+                                this.props.overviewData.map((overviewInfo:overviewInfo) => {
+                                    return(
+                                        <li key = { overviewInfo.id }>
+                                            <Link to='/albums'>
+                                                <DisplayCard
+                                                    name = { overviewInfo.name }
+                                                    img = { overviewInfo.img }
+                                                />
+                                            </Link>
+                                        </li>
+                                    )
+                                })
+                             }
+                        </ul>
+                    </Panel.Body>
+                </Panel>
+            </section>
+        )
+    }
 }
