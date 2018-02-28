@@ -21,10 +21,6 @@ type overviewInfo = {
 export default class OverviewDisplay extends Component<Props, State> {
     props:Props
 
-    renderDisplayCard() {
-        
-    }
-
     render() {
         return(
             <section className='overview-display'>
@@ -45,7 +41,13 @@ export default class OverviewDisplay extends Component<Props, State> {
                                 this.props.overviewData.map((overviewInfo:overviewInfo) => {
                                     return(
                                         <li key = { overviewInfo.id }>
-                                            <Link to='/albums'>
+                                            <Link 
+                                                to={
+                                                    this.props.location === 'artists'
+                                                    ? '/albums'
+                                                    : `/albums/${overviewInfo.name.toLowerCase()}`
+                                                    }
+                                            >
                                                 <DisplayCard
                                                     name = { overviewInfo.name }
                                                     img = { overviewInfo.img }
