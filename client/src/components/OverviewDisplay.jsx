@@ -51,6 +51,7 @@ export default class OverviewDisplay extends Component<Props, State> {
                                                 <DisplayCard
                                                     name = { overviewInfo.name }
                                                     img = { overviewInfo.img }
+                                                    location = { this.props.location }
                                                 />
                                             </Link>
                                         </li>

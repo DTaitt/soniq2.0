@@ -137,17 +137,30 @@ div.display-card {
     margin-bottom: 1vw;
     display: flex;
     align-items: center;
+    justify-content: flex-start;
     h2 {
         font-size: 5vw;
+    }
+    .glyphicon-music {
+        font-size: 9vw;
+        text-align: right;
+        margin: 4vw;
+        margin-left: auto;
     }
 }
 
 //Audio Player
-div.react-h5-audio-player {
-    height: 13vh;
-}
+// div.react-h5-audio-player {
+//     height: 13vh;
+// }
 
-div.react-h5-audio-player.undefined > div {
-    background: cornsilk !important;
-    height: 100% !important;
+// div.react-h5-audio-player.undefined > div {
+//     background: cornsilk !important;
+//     height: 100% !important;
+// }
+
+audio.react-audio-player {
+    height: 13vh;
+    background: black;
+    width: 100%;
 }

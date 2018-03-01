@@ -105,13 +105,17 @@ div.display-card {
   height: 18vw;
   margin-bottom: 1vw;
   display: flex;
-  align-items: center; }
+  align-items: center;
+  justify-content: flex-start; }
   div.display-card h2 {
     font-size: 5vw; }
+  div.display-card .glyphicon-music {
+    font-size: 9vw;
+    text-align: right;
+    margin: 4vw;
+    margin-left: auto; }
 
-div.react-h5-audio-player {
-  height: 13vh; }
-
-div.react-h5-audio-player.undefined > div {
-  background: cornsilk !important;
-  height: 100% !important; }
+audio.react-audio-player {
+  height: 13vh;
+  background: black;
+  width: 100%; }
