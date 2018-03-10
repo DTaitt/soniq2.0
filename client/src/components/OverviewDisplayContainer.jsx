@@ -199,14 +199,37 @@ export default class OverviewDisplayContainer extends Component<Props, State> {
         )
     }
 
+    renderMetadata(pathName:string, metadataType:string) {
+        return(
+            <Route
+                exact 
+                path={pathName}
+                render={
+                    ({location}) => {
+                        return(
+                            <OverviewDisplay 
+                                overviewData={this.state[metadataType]} 
+                                location={location.pathname.slice(1)}
+                            /> 
+                        )
+                    }  
+                }
+            >
+            </Route>
+        )
+    }
+
     render() {
         return(
             <BrowserRouter>
                 <div>
                     { this.redirectToArtists() }
-                    { this.renderAllArtists() }
+                    {/* { this.renderAllArtists() }
                     { this.renderAllAlbums() }
-                    { this.renderAllTracks() }
+                    { this.renderAllTracks() } */}
+                    { this.renderMetadata('/artists', 'artistData') }
+                    { this.renderMetadata('/albums', 'albumData') }
+                    { this.renderMetadata('/tracks', 'trackData') }
                 </div>
             </BrowserRouter>    
              
