@@ -4,8 +4,6 @@ import { BrowserRouter, Route, Redirect} from 'react-router-dom';
 
 import OverviewDisplay from './OverviewDisplay';
 
-import artistData from './../db/artistData';
-import albumData from './../db/albumData';
 import trackData from './../db/trackData';
 
 type Props = {};
@@ -28,47 +26,33 @@ export default class OverviewDisplayContainer extends Component<Props, State> {
     }
 
     componentDidMount() {  
-        // filter out duplicate artists and albums from db      
-        this.filterArtists()
-        this.filterAlbums()
+        this.filterDuplicates('artist', 'artistData');
+        this.filterDuplicates('album', 'albumData');
         
         trackData.forEach((trackObj) => {
             this.fetchMetadata('track','trackData', trackObj.artist_name, trackObj.album_name, trackObj.name)
         })
     }
 
-    filterArtists() {
-        let artistNames = [];
-        let allArtists = [];
+    //removes duplicate artists and albums
+    filterDuplicates(fetchType:string, metadataType:string) {
+        let databaseObjectNames = [];
+        let uniqueObjects = [];
 
+        //checks to see if an artist name has already appeared. If it hasn't add it to the unique objects array
         for (let i = 0; i < trackData.length; i++) {
-            if (artistNames.indexOf(trackData[i].artist_name) === -1) {
-                artistNames.push(trackData[i].artist_name)
-                allArtists.push(trackData[i])
+            if (databaseObjectNames.indexOf(trackData[i].artist_name) === -1) {
+                databaseObjectNames.push(trackData[i].artist_name)
+                uniqueObjects.push(trackData[i])
             }
         }
 
-        allArtists.forEach((artistObj) => {
-            this.fetchMetadata('artist','artistData',artistObj.artist_name)
+        uniqueObjects.forEach((databaseObject) => {
+            this.fetchMetadata(fetchType,metadataType,databaseObject.artist_name,databaseObject.album_name,databaseObject.name)
         })
     }
 
-    filterAlbums() {
-        let albumNames = [];
-        let allAlbums = [];
-
-        for (let i = 0; i < trackData.length; i++) {
-            if (albumNames.indexOf(trackData[i].album_name) === -1) {
-                albumNames.push(trackData[i].album_name)
-                allAlbums.push(trackData[i])
-            }
-        }
-
-        allAlbums.forEach((albumObj) => {
-            this.fetchMetadata('album','albumData',albumObj.artist_name,albumObj.album_name)
-        })
-    }
-
+    //fetches to last FM API
     async fetchMetadata(fetchType:string, metadataType:string, artist:string, album?:string, track?:string) {
         let metadataJson;
         switch (fetchType) {
@@ -89,6 +73,7 @@ export default class OverviewDisplayContainer extends Component<Props, State> {
         try {  
             let metadataInfo = await metadataJson;
 
+            // ternary that doesn't add an image to track data from the API
             fetchType === 'track'
             ? this.setState((prevState) =>({
                 [metadataType]: [...prevState[metadataType], {
@@ -111,11 +96,8 @@ export default class OverviewDisplayContainer extends Component<Props, State> {
 
     redirectToArtists() {
         return(
-            <Route 
-                exact 
-                path='/' 
-                render={ 
-                    () => {
+            <Route exact path='/' render={ 
+                () => {
                         return(
                             <Redirect to='/artists' />
                         )
@@ -128,9 +110,7 @@ export default class OverviewDisplayContainer extends Component<Props, State> {
 
     renderMetadata(pathName:string, metadataType:string) {
         return(
-            <Route
-                exact 
-                path={pathName}
+            <Route exact path={pathName}
                 render={
                     ({location}) => {
                         return(
