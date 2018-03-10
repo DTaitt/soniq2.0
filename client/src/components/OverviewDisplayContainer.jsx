@@ -54,24 +54,6 @@ export default class OverviewDisplayContainer extends Component<Props, State> {
 
     //fetches to last FM API
     async fetchMetadata(fetchType:string, metadataType:string, artist:string, album?:string, track?:string) {
-        // let res;
-        // switch (fetchType) {
-        //     case 'artist':
-        //     try {
-                
-        //     } catch (error) {
-                
-        //     }
-        //         res = await fetch(`http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${artist}&api_key=e9bb8cb9315f107a6c913dd67b7ead04&format=json`);
-        //         break;
-        //     case 'album':
-        //         res = await fetch(`http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=e9bb8cb9315f107a6c913dd67b7ead04&artist=${artist}&album=${String(album)}&format=json`);
-        //         break;
-        //     default:
-        //         res = await fetch(`http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=e9bb8cb9315f107a6c913dd67b7ead04&artist=${artist}&track=${String(track)}&format=json`)
-        //         break;
-        // }
-
         try {  
             let res;
             switch (fetchType) {
