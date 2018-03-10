@@ -33,7 +33,7 @@ export default class OverviewDisplayContainer extends Component<Props, State> {
         this.filterAlbums()
         
         trackData.forEach((trackObj) => {
-            this.apiFetch('track', trackObj.artist_name, trackObj.album_name, trackObj.name)
+            this.fetchMetadata('track','trackData', trackObj.artist_name, trackObj.album_name, trackObj.name)
         })
     }
 
@@ -49,7 +49,7 @@ export default class OverviewDisplayContainer extends Component<Props, State> {
         }
 
         allArtists.forEach((artistObj) => {
-            this.apiFetch('artist',artistObj.artist_name)
+            this.fetchMetadata('artist','artistData',artistObj.artist_name)
         })
     }
 
@@ -65,61 +65,48 @@ export default class OverviewDisplayContainer extends Component<Props, State> {
         }
 
         allAlbums.forEach((albumObj) => {
-            this.apiFetch('album',albumObj.artist_name,albumObj.album_name)
+            this.fetchMetadata('album','albumData',albumObj.artist_name,albumObj.album_name)
         })
     }
 
-    apiFetch(fetchType:string, artist:string, album?:string, track?:string) {
+    async fetchMetadata(fetchType:string, metadataType:string, artist:string, album?:string, track?:string) {
+        let metadataJson;
         switch (fetchType) {
             case 'artist':
-            fetch(`http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${artist}&api_key=e9bb8cb9315f107a6c913dd67b7ead04&format=json`)
-                .then((res) => {
-                    return res.json();
-                })
-                .then((artistInfo:Object) => {
-                    this.setState((prevState) =>({
-                        artistData: [...prevState.artistData, {
-                            id: artistInfo.artist.url,
-                            name: artistInfo.artist.name,
-                            img: artistInfo.artist.image[1]['#text']
-                        }]
-                    }))
-                })
-            break;
+                let artistRes = await fetch(`http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${artist}&api_key=e9bb8cb9315f107a6c913dd67b7ead04&format=json`);
+                metadataJson = await artistRes.json();
+                break;
             case 'album':
-            fetch(`http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=e9bb8cb9315f107a6c913dd67b7ead04&artist=${artist}&album=${String(album)}&format=json`)
-                .then((res) => {
-                    return res.json();
-                })
-                .then((albumInfo:Object) => {
-                    this.setState((prevState) =>({
-                        albumData: [...prevState.albumData, {
-                            id: albumInfo.album.url,
-                            name: albumInfo.album.name,
-                            img: albumInfo.album.image[1]['#text']
-                        }]
-                    }))
-                })    
-            break;    
-            case 'track':
-            fetch(`http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=e9bb8cb9315f107a6c913dd67b7ead04&artist=${artist}&track=${String(track)}&format=json`)
-                .then((res) => {
-                    return res.json();
-                })
-                .then((trackInfo:Object) => {
-                    this.setState((prevState) =>({
-                        trackData: [...prevState.trackData, {
-                            id: trackInfo.track.url,
-                            name: trackInfo.track.name,
-                            // img: trackInfo.track.album.image[1]['#text']
-                        }]
-                    }))
-                })   
+                let albumRes = await fetch(`http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=e9bb8cb9315f107a6c913dd67b7ead04&artist=${artist}&album=${String(album)}&format=json`);
+                metadataJson = await albumRes.json();
+                break;
             default:
+                let trackRes = await fetch(`http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=e9bb8cb9315f107a6c913dd67b7ead04&artist=${artist}&track=${String(track)}&format=json`)
+                metadataJson = await trackRes.json();
                 break;
         }
 
-        
+        try {  
+            let metadataInfo = await metadataJson;
+
+            fetchType === 'track'
+            ? this.setState((prevState) =>({
+                [metadataType]: [...prevState[metadataType], {
+                    id: metadataInfo[fetchType].url,
+                    name: metadataInfo[fetchType].name,
+                }]
+            }))
+            : 
+            this.setState((prevState) =>({
+                [metadataType]: [...prevState[metadataType], {
+                    id: metadataInfo[fetchType].url,
+                    name: metadataInfo[fetchType].name,
+                    img:metadataInfo[fetchType].image[1]['#text'] 
+                }]
+            }))
+        } catch(err) {
+            console.log(err);
+        }
     }
 
     redirectToArtists() {
@@ -134,66 +121,6 @@ export default class OverviewDisplayContainer extends Component<Props, State> {
                         )
                     }     
                 } 
-            >
-            </Route>
-        )
-    }
-
-    renderAllArtists() {
-        return(
-            <Route
-                exact 
-                path='/artists'
-                render={
-                    ({location}) => {
-                        return(
-                            <OverviewDisplay 
-                                overviewData={this.state.artistData} 
-                                location={location.pathname.slice(1)}
-                            /> 
-                        )
-                    }  
-                }
-            >
-            </Route>
-        )
-    }
-
-    renderAllAlbums() {
-        return(
-            <Route
-                exact 
-                path='/albums'
-                render={
-                    ({location}) => {
-                        return(
-                            <OverviewDisplay 
-                                overviewData={this.state.albumData} 
-                                location={location.pathname.slice(1)}
-                            /> 
-                        )
-                    }  
-                }
-            >
-            </Route>
-        )
-    }
-
-    renderAllTracks() {
-        return(
-            <Route
-                exact 
-                path='/tracks'
-                render={
-                    ({location}) => {
-                        return(
-                            <OverviewDisplay 
-                                overviewData={this.state.trackData} 
-                                location={location.pathname.slice(1)}
-                            /> 
-                        )
-                    }  
-                }
             >
             </Route>
         )
@@ -224,9 +151,6 @@ export default class OverviewDisplayContainer extends Component<Props, State> {
             <BrowserRouter>
                 <div>
                     { this.redirectToArtists() }
-                    {/* { this.renderAllArtists() }
-                    { this.renderAllAlbums() }
-                    { this.renderAllTracks() } */}
                     { this.renderMetadata('/artists', 'artistData') }
                     { this.renderMetadata('/albums', 'albumData') }
                     { this.renderMetadata('/tracks', 'trackData') }
